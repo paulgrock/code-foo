@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+	<title>IGN Movies: Trailers, Movie Reviews, Pictures, Celebrities, and Interviews</title>
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0a4.1/jquery.mobile-1.0a4.1.min.css" />
+	<script src="http://code.jquery.com/jquery-1.6.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.0a4.1/jquery.mobile-1.0a4.1.min.js"></script>
+	<link rel="stylesheet" href="ign.css" />
+</head>
+<body id="main">
+	<div data-role="page" id="movies">	
+		<header data-role="header">
+			<h1>IGN Movies</h1>
+			<a href="#" data-role="back-btn" data-icon="arrow-l" data-rel="back">Back</a>
+		</header>
+		<section data-role="content">
+			<ul id="articlesHolder" data-role="listview" data-theme="b" data-filter='true'>
+
+			</ul>
+		</section>
+		<footer data-role="footer">
+			<h4>Developed by @paulgrock for IGN's Code-Foo Challenge</h4>
+		</footer>
+	<script id="articles" type="text/x-jquery-tmpl">
+		<li class="ui-btn ui-btn-hover-b ui-btn-down-b ui-btn-icon-right ui-li ui-li-has-thumb">
+			<div class="ui-btn-inner ui-li">
+				<div class="ui-btn-text">
+					<a href="${link}" class="ui-link-inherit">
+						<img src="${image}" class="ui-li-thumb" />
+						<h3 class="ui-li-heading">${title}</h3>
+						<p class="ui-li-desc">${author} ${description}</p>
+					</a>
+				</div>
+				<span class="ui-icon ui-icon-arrow-r"></span>
+			</div>
+		</li>
+	</script>
+	<script src="js/jquery.tmpl.min.js"></script>
+	<script>
+		function yqlQuery(query, callback){
+			var yqlURL = "http://query.yahooapis.com/v1/public/yql";
+			var data = {
+				q: query,
+				format: 'json'
+			}
+			
+			$.get(yqlURL, data, callback, 'jsonp');
+		}
+		yqlQuery("select * from feed where  url='http://feeds.ign.com/ignfeeds/" + 'movies/' + "'", function(resp){
+				var items = resp.query.results.item,
+					imgSrc;
+			//	$("title").html(items[0].source.content);
+				var	article = $.map(items, function(obj, index){
+					var origDesc = obj.description;
+					if($(obj.description).find('img').length){
+						imgSrc = $(obj.description).find('img').attr('src');
+					} else {
+						imgSrc = "http://oyster.ignimgs.com/static/social/img/avatars/male2.jpg";
+					}
+					return {
+						title: obj.title,
+						link: obj.link,
+						description: $(obj.description).filter('p:last').text(),
+						image: imgSrc,
+						author: obj.author
+					}
+				});
+				$("#articles").tmpl(article).appendTo('#articlesHolder');
+			});
+	</script>
+</div>
+</body>
+</html>

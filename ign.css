@@ -1,0 +1,52 @@
+.ui-header, .ui-footer, .ui-btn {
+	background-image: -moz-linear-gradient(top, hsla(9, 95.6284%, 35.8824%, 1.0000), hsla(4, 78.4314%, 20.0000%, 1.0000)); /* FF3.6 */
+	background-image: -o-linear-gradient(top, hsla(9, 95.6284%, 35.8824%, 1.0000), hsla(4, 78.4314%, 20.0000%, 1.0000)); /* Opera 11.10+ */
+	background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, hsla(9, 95.6284%, 35.8824%, 1.0000)),color-stop(1, hsla(4, 78.4314%, 20.0000%, 1.0000))); /* Saf4+, Chrome */
+	background-image: -webkit-linear-gradient(hsla(9, 95.6284%, 35.8824%, 1.0000), hsla(4, 78.4314%, 20.0000%, 1.0000)); /* Chrome 10+, Saf5.1+ */
+	background-image: linear-gradient(top, hsla(9, 95.6284%, 35.8824%, 1.0000), hsla(4, 78.4314%, 20.0000%, 1.0000));
+}
+.ui-li-thumb {
+	width: 80px;
+	height: 80px;
+}
+header img {
+	max-width: 150px;
+}
+#3ds header, #3ds footer, #3ds .ui-btn {
+	
+}
+#comics header, #comics footer, #comics .ui-btn {
+	
+}
+#iphone header, #iphone footer, #iphone .ui-btn{
+	
+}
+#movies header, #movies footer, #movies .ui-btn {
+	
+}
+#pc header, #pc footer, #pc .ui-btn {
+	
+}
+#ps3 header, #ps3 footer, #ps3 .ui-btn {
+	background-image: -moz-linear-gradient(top, hsla(360, 100.0000%, 24.9020%, 1.0000), hsla(4, 96.4912%, 11.1765%, 1.0000)); /* FF3.6 */
+	background-image: -o-linear-gradient(top, hsla(360, 100.0000%, 24.9020%, 1.0000), hsla(4, 96.4912%, 11.1765%, 1.0000)); /* Opera 11.10+ */
+	background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, hsla(360, 100.0000%, 24.9020%, 1.0000)),color-stop(1, hsla(4, 96.4912%, 11.1765%, 1.0000))); /* Saf4+, Chrome */
+	background-image: -webkit-linear-gradient(hsla(360, 100.0000%, 24.9020%, 1.0000), hsla(4, 96.4912%, 11.1765%, 1.0000)); /* Chrome 10+, Saf5.1+ */
+	background-image: linear-gradient(top, hsla(360, 100.0000%, 24.9020%, 1.0000), hsla(4, 96.4912%, 11.1765%, 1.0000));
+}
+#psp header, #psp footer, #psp .ui-btn{
+	
+}
+#tv header, #tv footer, #tv .ui-btn {
+	
+}
+#wii header, #wii footer, #wii .ui-btn {
+	
+}
+#xbox header, #xbox footer, #xbox .ui-btn {
+	background-image: -moz-linear-gradient(top, hsla(79, 66.0000%, 39.2157%, 1.0000), hsla(83, 78.0220%, 17.8431%, 1.0000)); /* FF3.6 */
+	background-image: -o-linear-gradient(top, hsla(79, 66.0000%, 39.2157%, 1.0000), hsla(83, 78.0220%, 17.8431%, 1.0000)); /* Opera 11.10+ */
+	background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, hsla(79, 66.0000%, 39.2157%, 1.0000)),color-stop(1, hsla(83, 78.0220%, 17.8431%, 1.0000))); /* Saf4+, Chrome */
+	background-image: -webkit-linear-gradient(hsla(79, 66.0000%, 39.2157%, 1.0000), hsla(83, 78.0220%, 17.8431%, 1.0000)); /* Chrome 10+, Saf5.1+ */
+	background-image: linear-gradient(top, hsla(79, 66.0000%, 39.2157%, 1.0000), hsla(83, 78.0220%, 17.8431%, 1.0000));
+}
