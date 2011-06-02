@@ -11,7 +11,7 @@
 <body id="main">
 	<div data-role="page" id="movies">	
 		<header data-role="header">
-			<h1>IGN Movies</h1>
+			<h1><img src="IGN.png" alt="Video Games, Cheats, Walkthroughs, Game Trailers, Reviews, News, Previews & Videos at IGN" /></h1>
 			<a href="#" data-role="back-btn" data-icon="arrow-l" data-rel="back">Back</a>
 		</header>
 		<section data-role="content">
@@ -20,7 +20,7 @@
 			</ul>
 		</section>
 		<footer data-role="footer">
-			<h4>Developed by @paulgrock for IGN's Code-Foo Challenge</h4>
+			<p>Developed by @paulgrock for IGN's Code-Foo Challenge</p>
 		</footer>
 	<script id="articles" type="text/x-jquery-tmpl">
 		<li class="ui-btn ui-btn-hover-b ui-btn-down-b ui-btn-icon-right ui-li ui-li-has-thumb">
@@ -29,7 +29,7 @@
 					<a href="${link}" class="ui-link-inherit">
 						<img src="${image}" class="ui-li-thumb" />
 						<h3 class="ui-li-heading">${title}</h3>
-						<p class="ui-li-desc">${author} ${description}</p>
+						<p class="ui-li-desc">${description}</p>
 					</a>
 				</div>
 				<span class="ui-icon ui-icon-arrow-r"></span>
@@ -56,14 +56,13 @@
 					if($(obj.description).find('img').length){
 						imgSrc = $(obj.description).find('img').attr('src');
 					} else {
-						imgSrc = "http://oyster.ignimgs.com/static/social/img/avatars/male2.jpg";
+						imgSrc = "IGN-logo.png";
 					}
 					return {
 						title: obj.title,
 						link: obj.link,
 						description: $(obj.description).filter('p:last').text(),
-						image: imgSrc,
-						author: obj.author
+						image: imgSrc
 					}
 				});
 				$("#articles").tmpl(article).appendTo('#articlesHolder');

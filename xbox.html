@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8" />
-	<title>Microsoft Xbox 360 Games, Cheats, Walkthroughs, News, Reviews, Previews, Game Trailers &amp Videos - IGN</title>
+	<title>Microsoft Xbox 360 Games, Cheats, Walkthroughs, News, Reviews, Previews, Game Trailers &amp; Videos - IGN</title>
 	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0a4.1/jquery.mobile-1.0a4.1.min.css" />
 	<script src="http://code.jquery.com/jquery-1.6.min.js"></script>
 	<script src="http://code.jquery.com/mobile/1.0a4.1/jquery.mobile-1.0a4.1.min.js"></script>
@@ -30,7 +30,7 @@
 					<a href="${link}" class="ui-link-inherit">
 						<img src="${image}" class="ui-li-thumb" />
 						<h3 class="ui-li-heading">${title}</h3>
-						<p class="ui-li-desc">${author} ${description}</p>
+						<p class="ui-li-desc">${description}</p>
 					</a>
 				</div>
 				<span class="ui-icon ui-icon-arrow-r"></span>
@@ -57,14 +57,13 @@
 					if($(obj.description).find('img').length){
 						imgSrc = $(obj.description).find('img').attr('src');
 					} else {
-						imgSrc = "http://oyster.ignimgs.com/static/social/img/avatars/male2.jpg";
+						imgSrc = "IGN-logo.png";
 					}
 					return {
 						title: obj.title,
 						link: obj.link,
 						description: $(obj.description).filter('p:last').text(),
-						image: imgSrc,
-						author: obj.author
+						image: imgSrc
 					}
 				});
 				$("#articles").tmpl(article).appendTo('#articlesHolder');
