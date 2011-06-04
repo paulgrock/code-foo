@@ -16,3 +16,7 @@ xcuserdata
 # svn & cvs
 .svn
 CVS
+
+#jq tmpl files
+js/jquery-jquery-tmpl-5ffd980/*
+*.md
