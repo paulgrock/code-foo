@@ -8,4 +8,4 @@
 
 The minimum number of moves for a Knight to get across a chessboard is equal to the number of squares on a chessboard. Typically chessboards are 8 x 8 so the Knight should be able to get across in 63 moves.
 
-4) Creatively prove to us that you meet our value - Fire - that this would be more than just a job to you, and that you are passionate about us.
+4) To show my ability and the enjoyment that I get out of IGN I created a mobile RSS reader for the various IGN properties. This combines my passion for gin with the pleasure of reading on a mobile device. Plus it was a really fun project.
