@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+	<title>Chess</title>
+	<style>
+		html, body {
+			padding: 0;
+			margin: 0;
+			color: #444;
+		}
+		canvas#draw {
+			float: left;
+		}
+		#board {
+			width: 320px;
+		}
+		#draw {
+			background-color: black;
+		}
+		div {
+			float: left;
+		}
+		#graph {
+			border: 1px solid black;
+			border-right: none;
+			border-top: none;
+			float: left;
+			background-color: #444444;
+			background-image: -moz-linear-gradient(top left, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 49.7%, rgba(255, 0, 0, 1) 50%); /* FF3.6 */
+			background-image: -ms-linear-gradient(top left, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 50%, rgba(255, 0, 0, 1) 50%);
+			background-image: -o-linear-gradient(top left, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 50%, rgba(255, 0, 0, 1) 50%); /* Opera 11.10+ */
+			background-image: -webkit-gradient(linear,left top,right bottom, color-stop(0, rgba(0, 0, 0, 1)),color-stop(.5, rgba(0, 0, 0, 1)),color-stop(.50, rgba(255, 0, 0, 1))); /* Saf4+, Chrome */
+			background-image: -webkit-linear-gradient(top left, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 50%, rgba(255, 0, 0, 1) 50%); /* Chrome 10+, Saf5.1+ */
+			background-image: linear-gradient(top left, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 50%, rgba(255, 0, 0, 1) 50%);
+		}
+		form {
+			clear: both;
+		}
+		form #number {
+			width: 20px;
+		}
+		div p:nth-of-type(1) {
+			float: left;
+			margin: 150px 20px;
+		}
+		div p:nth-last-of-type(1) {
+			padding-left: 83px;
+			text-align: center;
+		}
+		#error {
+			background-color: red;
+			background-color: rgba(255, 0, 0, .6);
+			width: 100%;
+		}
+		#error a {
+			float: right;
+		}
+		div a {
+			-webkit-border-radius: 1em;
+			   -moz-border-radius: 1em;
+					border-radius: 1em;
+			text-align: center;
+			padding: 0 1em;
+			text-decoration: none;
+			color: white;
+			height: 2em;
+			line-height: 2em;
+			display: block;
+			background: red;
+			background-image: -moz-linear-gradient(top, rgba(0, 0, 0, 1) 0%, rgba(255, 0, 0, 1) 100%);
+			background-image: -ms-linear-gradient(top, rgba(0, 0, 0, 1) 0%, rgba(255, 0, 0, 1) 100%);
+			background-image: -o-linear-gradient(top, rgba(0, 0, 0, 1) 0%, rgba(255, 0, 0, 1) 100%); 
+			background-image: -webkit-gradient(linear,left top, left bottom, color-stop(0, rgba(0, 0, 0, 1)), color-stop(1, rgba(255, 0, 0, 1)));
+			background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 1) 0%, rgba(255, 0, 0, 1) 100%);
+			background-image: linear-gradient(top, rgba(0, 0, 0, 1) 0%, rgba(255, 0, 0, 1) 100%);
+			-webkit-box-shadow: 2px 2px 2px rgba(0, 0, 0, .5);
+			   -moz-box-shadow: 2px 2px 2px rgba(0, 0, 0, .5);
+				 -o-box-shadow: 2px 2px 2px rgba(0, 0, 0, .5);
+					box-shadow: 2px 2px 2px rgba(0, 0, 0, .5);
+			float: left;
+			margin: 5px 0 0;
+			width: 120px;
+		}
+		#submit {
+			margin: 5px 15px 0 0;
+			
+		}
+	</style>
+</head>
+<body id="main">
+	<div id="board">
+		<img src="chess-knight.png" id="knight">
+		
+		<canvas id="draw" width="320" height="320"></canvas>
+		
+		<form action="" >
+			<label for="number">Time in seconds to fill the board.</label>
+			<input type="text" placeholder="1" id="number" />
+		</form>
+		<a href="#" id="submit">Go!</a>
+		<a href="#" id="clear">Clear the board</a>
+	</div>
+	<div id="labels">
+		<p>Moves <br><span>0</span></p>
+		<canvas id="graph" width="320" height="320"></canvas>
+		<p>Squares <br><span>0</span></p>
+	</div>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js"></script>
+	<script>
+		var canvas = document.getElementById("draw"),
+			ctx = canvas.getContext("2d"),
+			canvasGraph = document.getElementById("graph"),
+			graphCtx = canvasGraph.getContext("2d"),
+			knight = document.getElementById("knight"),
+			moves = 0,
+			c = 0,
+			stopped;
+		$(knight).remove();
+		layout();
+		function layout() {
+			for( var horiz = 0; horiz < 320; horiz += 80){
+				ctx.fillStyle = "red";
+				ctx.fillRect(horiz, 0, 40, 40);
+				ctx.fillRect(horiz, 80, 40, 40);
+				ctx.fillRect(horiz, 160, 40, 40);
+				ctx.fillRect(horiz, 240, 40, 40);
+				ctx.fillRect(horiz + 40, 40, 40, 40);
+				ctx.fillRect(horiz + 40, 120, 40, 40);
+				ctx.fillRect(horiz + 40, 200, 40, 40);
+				ctx.fillRect(horiz + 40, 280, 40, 40);
+			}
+		}
+		$("#clear").click(function(e){
+			e.preventDefault();
+			canvas.width = canvas.width;
+			canvasGraph.width = canvasGraph.width;
+			layout();
+			moves = 0;
+			c = 0;
+			$("#labels p:first-child span, #labels p:last-child span").text(moves);
+			stopped = true;
+		});
+		$("#error a").live('click', function(e){
+			e.preventDefault();
+			$(this).parent().slideUp('fast');
+		});
+		$("#submit").click(function(e){
+			e.preventDefault();
+			if(moves > 2) {
+				var response = confirm("Would you like to clear the board and run again?");
+				if(response) {
+					$("#clear").trigger('click');
+					timer = $("#number").val();
+					stopped = false;
+					boardFill(timer);
+				}
+			} else {
+				stopped = false;
+				timer = $("#number").val();
+				boardFill(timer);
+			}
+		});
+		
+		function draw(moveHoriz, moveVert){
+			if(!stopped && moves < 64) {
+				ctx.fillStyle = 'blue';
+				ctx.fillRect(moveHoriz, moveVert, 40, 40);
+				ctx.drawImage(knight, moveHoriz, moveVert); 
+				graphIt(++moves); 
+				console.log(timer + " timer <--- : moves -----> " + moves + " x, y: " + moveHoriz + ", " + moveVert);
+				$("#labels p:first-child span, #labels p:last-child span").text(moves);
+			}
+		}
+		function boardFill(timer){
+			if(!timer){
+				timer = 1;
+			}
+			timer = timer/63 * 1000;
+			if(!stopped){
+				setTimeout("draw(0, 0)", 2);
+				setTimeout("draw(80, 40)", c += timer);
+				setTimeout("draw(160, 0)", c += timer);
+				setTimeout("draw(240, 40)", c += timer);
+				setTimeout("draw(280, 120)", c += timer);
+				setTimeout("draw(240, 200)", c += timer);
+				setTimeout("draw(280, 280)", c += timer);
+				setTimeout("draw(200, 240)", c += timer);
+				setTimeout("draw(120, 280)", c += timer);
+				setTimeout("draw(40, 240)", c += timer);
+				setTimeout("draw(0, 160)", c += timer);
+				setTimeout("draw(40, 80)", c += timer);
+				setTimeout("draw(80, 0)", c += timer);
+				setTimeout("draw(160, 40)", c += timer);
+				setTimeout("draw(240, 0)", c += timer);
+				setTimeout("draw(280, 80)", c += timer);
+				setTimeout("draw(240, 160)", c += timer);
+				setTimeout("draw(280, 240)", c += timer);
+				setTimeout("draw(200, 280)", c += timer);
+				setTimeout("draw(120, 240)", c += timer);
+				setTimeout("draw(40, 280)", c += timer);
+				setTimeout("draw(0, 200)", c += timer);
+				setTimeout("draw(40, 120)", c += timer);
+				setTimeout("draw(0, 40)", c += timer);
+				setTimeout("draw(80, 80)", c += timer);
+				setTimeout("draw(120, 0)", c += timer);
+				setTimeout("draw(200, 40)", c += timer);
+				setTimeout("draw(280, 0)", c += timer);
+				setTimeout("draw(240, 80)", c += timer);
+				setTimeout("draw(280, 160)", c += timer);
+				setTimeout("draw(240, 240)", c += timer);
+				setTimeout("draw(160, 280)", c += timer);
+				setTimeout("draw(80, 240)", c += timer);
+				setTimeout("draw(0, 280)", c += timer);
+				setTimeout("draw(40, 200)", c += timer);
+				setTimeout("draw(0, 120)", c += timer);
+				setTimeout("draw(40, 40)", c += timer);
+				setTimeout("draw(80, 120)", c += timer);
+				setTimeout("draw(0, 80)", c += timer);
+				setTimeout("draw(40, 0)", c += timer);
+				setTimeout("draw(120, 40)", c += timer);
+				setTimeout("draw(200, 0)", c += timer);
+				setTimeout("draw(280, 40)", c += timer);
+				setTimeout("draw(240, 120)", c += timer);
+				setTimeout("draw(280, 200)", c += timer);
+				setTimeout("draw(240, 280)", c += timer);
+				setTimeout("draw(160, 240)", c += timer);
+				setTimeout("draw(80, 280)", c += timer);
+				setTimeout("draw(0, 240)", c += timer);
+				setTimeout("draw(40, 160)", c += timer);
+				setTimeout("draw(120, 200)", c += timer);
+				setTimeout("draw(200, 160)", c += timer);
+				setTimeout("draw(160, 80)", c += timer);
+				setTimeout("draw(120, 160)", c += timer);
+				setTimeout("draw(200, 200)", c += timer);
+				setTimeout("draw(160, 120)", c += timer);
+				setTimeout("draw(80, 160)", c += timer);
+				setTimeout("draw(160, 200)", c += timer);
+				setTimeout("draw(200, 120)", c += timer);
+				setTimeout("draw(120, 80)", c += timer);
+				setTimeout("draw(160, 160)", c += timer);
+				setTimeout("draw(80, 200)", c += timer);
+				setTimeout("draw(120, 120)", c += timer);
+				setTimeout("draw(200, 80)", c += timer);
+			}
+		}
+		function graphIt(moves){
+			graphCtx.beginPath();
+			graphCtx.strokeStyle = 'blue';
+			graphCtx.moveTo(0, 320);
+			graphCtx.lineTo(moves * 5, 320 - moves * 5);
+			graphCtx.moveTo(moves * 5, 320 - moves * 5);
+			graphCtx.stroke();
+		}	
+	</script>
+</body>
+</html>
