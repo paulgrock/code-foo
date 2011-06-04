@@ -3,6 +3,9 @@
 <head>
     <meta charset="utf-8" />
 	<title>Chess</title>
+	<!--[if lt IE 9]>
+	    <script type="text/javascript" src="js/excanvas.min.js"></script>
+	<![endif]-->
 	<style>
 		html, body {
 			padding: 0;
@@ -168,7 +171,6 @@
 				ctx.fillRect(moveHoriz, moveVert, 40, 40);
 				ctx.drawImage(knight, moveHoriz, moveVert); 
 				graphIt(++moves); 
-				console.log(timer + " timer <--- : moves -----> " + moves + " x, y: " + moveHoriz + ", " + moveVert);
 				$("#labels p:first-child span, #labels p:last-child span").text(moves);
 			}
 		}
